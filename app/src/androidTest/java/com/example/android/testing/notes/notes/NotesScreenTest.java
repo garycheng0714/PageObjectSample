@@ -17,6 +17,7 @@
 package com.example.android.testing.notes.notes;
 
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,7 @@ import static org.junit.Assert.fail;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class NotesScreenTest {
+    private HomePage app;
 
     /**
      * {@link ActivityTestRule} is a JUnit {@link Rule @Rule} to launch your activity under test.
@@ -44,6 +46,11 @@ public class NotesScreenTest {
     @Rule
     public ActivityTestRule<NotesActivity> mNotesActivityTestRule =
             new ActivityTestRule<>(NotesActivity.class);
+
+    @Before
+    public void setUp() {
+        app = new HomePage();
+    }
 
     @Test
     public void clickAddNoteButton_opensAddNoteUi() throws Exception {
@@ -60,8 +67,6 @@ public class NotesScreenTest {
 //        fail("Implement step 7");
         String NoteTitle = "Espresso";
         String NoteDescription = "UI testing for Android";
-
-        HomePage app = new HomePage();
 
         app.is(HomePage.class).openNewNote()
            .is(newNotePage.class).createNote(NoteTitle, NoteDescription)
